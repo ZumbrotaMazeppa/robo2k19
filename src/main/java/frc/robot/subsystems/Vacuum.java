@@ -2,7 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 //import edu.wpi.first.wpilibj.Joystick;
 //import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -14,7 +14,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 public class Vacuum extends Subsystem {
   // We have 4 Talon SRX motors (using CAN, NOT PWM), so we need to use TalonSRX
   // From Phoenix 3rd party software
-  WPI_TalonSRX m_vacuum = new WPI_TalonSRX(6);
+  WPI_VictorSPX m_vacuum = new WPI_VictorSPX(0);
   boolean isOn = false;
 
   @Override
@@ -28,7 +28,8 @@ public class Vacuum extends Subsystem {
       m_vacuum.set(0.0);
     } else {
       isOn = true;
-      m_vacuum.set(0.5);
+      //Start at 0.8; 
+      m_vacuum.set(0.9);
     }
   }
 }
