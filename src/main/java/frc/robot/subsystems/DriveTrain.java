@@ -33,11 +33,11 @@ public class DriveTrain extends Subsystem {
     }
 
     public void driveWithJoystick(Joystick joystick) {
-        m_drive.arcadeDrive(-joystick.getY(), joystick.getTwist() * 0.75);
-    }
-
-    public static void drive(double d, double e) {
-        // TODO Auto-generated method stub
-
+        double throttle = -joystick.getThrottle();
+        if(throttle < 0.5) {
+            m_drive.arcadeDrive(-joystick.getY() * 0.5, joystick.getTwist() * 0.65 * 0.5);
+        } else {
+            m_drive.arcadeDrive(-joystick.getY(), joystick.getTwist() * 0.65);
+        }
     }
 }

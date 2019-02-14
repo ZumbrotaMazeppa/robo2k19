@@ -11,6 +11,7 @@ public class Winch extends Subsystem {
   // We have 4 Talon SRX motors (using CAN, NOT PWM), so we need to use VictorSRX
   // From Phoenix 3rd party software
   WPI_VictorSPX m_Winch = new WPI_VictorSPX(1);
+  long time = 0;
 
   @Override
   public void initDefaultCommand() {
@@ -18,14 +19,23 @@ public class Winch extends Subsystem {
   }
 
   public void up() {
-    m_Winch.set(-0.5);
+    if (time == 0) {
+      time = System.currentTimeMillis();
+      m_Winch.set(-0.5);
+    } else if( System.currentTimeMillis() - time > 2000) { // 50% for 2 seconds
+      m_Winch.set(-0.7);
+    } else {
+      m_Winch.set(-0.5);
+    }
   }
 
   public void down() {
+    time = 0;
     m_Winch.set(0.3);
   }
 
   public void stop() {
+    time = 0;
     m_Winch.set(0.0);
   }
 }
