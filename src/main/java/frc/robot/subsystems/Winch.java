@@ -3,6 +3,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.DigitalInput;
 
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
@@ -12,6 +13,8 @@ public class Winch extends Subsystem {
   // From Phoenix 3rd party software
   WPI_VictorSPX m_Winch = new WPI_VictorSPX(1);
   long time = 0;
+  DigitalInput limitSwitchUpper  = new DigitalInput(9);
+  DigitalInput limitSwitchLower = new DigitalInput(8);
 
   @Override
   public void initDefaultCommand() {
@@ -37,5 +40,13 @@ public class Winch extends Subsystem {
   public void stop() {
     time = 0;
     m_Winch.set(0.0);
+
+    if (limitSwitchUpper.get() && m_Winch.get() > 0) {
+      m_Winch.set(0);
+   
+    if (limitSwitchUpper.get() && m_Winch.get() < 0) {
+      m_Winch.set(0);
+    }
   }
+}
 }

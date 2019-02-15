@@ -28,6 +28,9 @@ public class winchUp extends Command {
   @Override
   protected void execute() {
     Robot.m_winch.up();
+   // if (limitSwitchUpper.get() && m_winch > 0) {
+     // Robot.m_winch.set(0);
+    //}
   }
 
   // Make this return true when this Command no longer needs to run execute()
