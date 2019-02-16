@@ -13,8 +13,8 @@ public class Winch extends Subsystem {
   // From Phoenix 3rd party software
   WPI_VictorSPX m_Winch = new WPI_VictorSPX(1);
   long time = 0;
-  DigitalInput limitSwitchUpper  = new DigitalInput(9);
-  DigitalInput limitSwitchLower = new DigitalInput(8);
+  DigitalInput limitSwitchUpper  = new DigitalInput(9 );
+  //DigitalInput limitSwitchLower = new DigitalInput(8);
 
   @Override
   public void initDefaultCommand() {
@@ -22,31 +22,36 @@ public class Winch extends Subsystem {
   }
 
   public void up() {
-    if (time == 0) {
-      time = System.currentTimeMillis();
-      m_Winch.set(-0.5);
-    } else if( System.currentTimeMillis() - time > 2000) { // 50% for 2 seconds
-      m_Winch.set(-0.7);
-    } else {
-      m_Winch.set(-0.5);
+    if(limitSwitchUpper.get()) {
+      stop();
+    } 
+    else {
+      m_Winch.set(-0.6);
+      /*
+      if (time == 0) {
+        time = System.currentTimeMillis();
+        m_Winch.set(-0.5);
+      } else if( System.currentTimeMillis() - time > 2000) { // 50% for 2 seconds
+        m_Winch.set(-0.5);
+      } else {
+        m_Winch.set(-0.5);
+      }*/
     }
   }
 
   public void down() {
     time = 0;
-    m_Winch.set(0.3);
-  }
+   // if(limitSwitchLower.get()) {
+     // stop(); 
+     // System.out.println("I'm stopping2");
+   // }
+   // else {
+      m_Winch.set(0.5);
+    }
+ // }
 
   public void stop() {
     time = 0;
-    m_Winch.set(0.0);
-
-    if (limitSwitchUpper.get() && m_Winch.get() > 0) {
-      m_Winch.set(0);
-   
-    if (limitSwitchUpper.get() && m_Winch.get() < 0) {
-      m_Winch.set(0);
-    }
+    m_Winch.set(-0.1);
   }
-}
 }

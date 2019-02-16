@@ -115,6 +115,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    m_subsystem.driveWithJoystick(m_stick);
     Scheduler.getInstance().run();
   }
 

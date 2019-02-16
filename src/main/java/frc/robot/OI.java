@@ -44,7 +44,7 @@ public class OI {
   
   public OI() {
     // exampleButton.whenPressed(new ExampleCommand());
-    button1.whenPressed(new vacuumOnOrOff());
+    //button1.whenPressed(new vacuumOnOrOff());
     button3.whileHeld(new winchDown());
     button4.whileHeld(new winchDown());
     button5.whileHeld(new winchUp());

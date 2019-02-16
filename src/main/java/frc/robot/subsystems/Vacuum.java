@@ -29,7 +29,7 @@ public class Vacuum extends Subsystem {
     } else {
       isOn = true;
       //Start at 0.8; 
-      m_vacuum.set(0.9);
+      m_vacuum.set(1.0);
     }
   }
 }
